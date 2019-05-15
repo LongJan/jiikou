@@ -16,9 +16,9 @@ fun main(args: Array<String>) {
     }
     try {
         when (args.first()) {
-            "-help" -> jiiKoUCli.help()
-            "-version" -> jiiKoUCli.version()
-            "-x" -> jiiKoUCli.action(args)
+            "help" -> jiiKoUCli.help()
+            "version" -> jiiKoUCli.version()
+            "x" -> jiiKoUCli.action(args)
             else -> jiiKoUCli.help()
         }
     } catch (e: Exception) {
@@ -39,7 +39,7 @@ fun Array<String>.findOption(option: String): String {
 class JiiKoUCli {
     fun action(args: Array<String>) {
         val jiiKoU = JiiKoU()
-        val targetFile = args.findOption("-x")
+        val targetFile = args.findOption("x")
         if (targetFile.isEmpty()) {
             throw JiiKoUException("error arguments")
         }
@@ -57,10 +57,17 @@ class JiiKoUCli {
     }
 
     fun version() {
-        println("jiikou version: 0.0.1")
+        println("jiikou version: \"0.0.1\"")
     }
 
     fun help() {
-
+        println("""
+            Usage:
+                   jiikou <command>
+            The commands are:
+                   version      :show the version of jiikou
+                   help         :help of jiikou
+                   x <your jar> [-name <app name>] [-options <"the options of java command">]           :make your jar can be executed
+        """.trimIndent())
     }
 }
